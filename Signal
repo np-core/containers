@@ -1,0 +1,46 @@
+ARG IMAGE=nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+
+FROM $IMAGE
+
+ARG GUPPY_VERSION=4.0.14
+ARG MINICONDA_VERSION=latest
+
+ENV PATH /opt/conda/bin:/rust/.cargo/bin:$PATH
+ENV CARGO_HOME=/rust/.cargo
+ENV RUSTUP_HOME=/rust/.rustup
+
+RUN apt-get update && apt-get install -y wget lsb-release && \
+    PLATFORM=$(lsb_release -cs) && \
+    wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | apt-key add - && \
+    echo "deb http://mirror.oxfordnanoportal.com/apt ${PLATFORM}-stable non-free" | tee /etc/apt/sources.list.d/nanoporetech.sources.list && \
+    apt-get update
+
+RUN apt-get install ont-guppy --no-install-recommends --yes
+
+# Anaconda for BioConda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    /opt/conda/bin/conda clean -tipsy && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+
+RUN conda install -c conda-forge -c bioconda --yes qcat
+
+# Nanoq separate because of GLIBC incompatibility for some reason
+RUN apt-get update && apt-get install curl -y
+RUN mkdir /rust && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN cargo install nanoq
+
+# Research basecall models from Rerio
+RUN apt-get update && apt-get install git -y
+RUN mkdir /rerio && git clone https://github.com/nanoporetech/rerio /rerio
+RUN python /rerio/download_model.py
+
+# Link models into a root directory for unified access
+RUN mkdir /models && ln -s /rerio/basecall_models/re* /models
+RUN ln -s /opt/ont/guppy/data/* /models
+RUN ln -s /rerio/basecall_models/barcoding/ /models/re_barcoding
+
+
