@@ -1,7 +1,3 @@
-# containers
-
-Docker container files for building pipeline environments from source :whale:
-
 # Pathogen
 
 Main container for operation of the (real-time) metagenomic pathogen identification and assembly pipeline.
