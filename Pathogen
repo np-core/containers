@@ -23,6 +23,3 @@ RUN conda install -c conda-forge -c bioconda --yes --no-update-deps \
 RUN mkdir /rust && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN cargo install nanoq
 
-ADD . /np
-RUN ls /np && pip install /np/nanopath
-
