@@ -5,6 +5,7 @@ FROM $IMAGE
 ARG GUPPY_VERSION=4.0.16
 ARG MINICONDA_VERSION=latest
 
+ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH /opt/conda/bin:/rust/.cargo/bin:$PATH
 ENV CARGO_HOME=/rust/.cargo
 ENV RUSTUP_HOME=/rust/.rustup
