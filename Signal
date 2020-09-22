@@ -39,7 +39,7 @@ RUN git clone https://github.com/nanoporetech/rerio /src/rerio && python /src/re
 
 # Link models into a root directory for unified access
 
-RUN ls /opt
+RUN ls /opt/ont/guppy
 RUN mkdir /guppy_models && cp -r /opt/ont/guppy/data/* /guppy_models
 RUN mkdir /rerio_models && cp -r /rerio/basecall_models/* /rerio_models
 
