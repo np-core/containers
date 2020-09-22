@@ -11,7 +11,7 @@ ENV RUSTUP_HOME=/rust/.rustup
 
 RUN apt-get update && apt-get install -y wget && mkdir /src
 
-RUN cd /src && wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz &&
+RUN cd /src && wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
     tar -xf ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
     ln -s ${PWD}/ont-guppy_${GUPPY_VERSION}_linux64/bin/* /usr/local/bin
 
