@@ -38,6 +38,8 @@ RUN apt-get update && apt-get install git -y
 RUN git clone https://github.com/nanoporetech/rerio /src/rerio && python /src/rerio/download_model.py
 
 # Link models into a root directory for unified access
+RUN ls /ont-guppy/
+RUN ls /
 RUN mkdir /guppy_models && cp -r /ont-guppy/data/* /guppy_models
 RUN mkdir /rerio_models && cp -r /rerio/basecall_models/* /rerio_models
 
