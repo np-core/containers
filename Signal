@@ -9,11 +9,12 @@ ENV PATH /opt/conda/bin:/rust/.cargo/bin:$PATH
 ENV CARGO_HOME=/rust/.cargo
 ENV RUSTUP_HOME=/rust/.rustup
 
-RUN apt-get update && apt-get install -y wget && mkdir /src
+RUN apt-get update && apt-get install -y wget lsb-release && mkdir /src
 
-RUN cd /src && wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
-    tar -xf ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
-    ln -s ${PWD}/ont-guppy_${GUPPY_VERSION}_linux64/bin/* /usr/local/bin
+RUN export PLATFORM=$(lsb_release -cs) && \
+    wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | apt-key add - && \
+    echo "deb http://mirror.oxfordnanoportal.com/apt ${PLATFORM}-stable non-free" | tee /etc/apt/sources.list.d/nanoporetech.sources.list && \
+    apt-get update && apt install ont-guppy
 
 # Anaconda for BioConda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -36,11 +37,11 @@ RUN apt-get update && apt-get install git -y
 RUN git clone https://github.com/nanoporetech/rerio /src/rerio && python /src/rerio/download_model.py
 
 # Link models into a root directory for unified access
-RUN mkdir /guppy_models && cp -r /opt/ont/guppy/data/* /guppy_models
+RUN mkdir /guppy_models && cp -r /ont-guppy/data/* /guppy_models
 RUN mkdir /rerio_models && cp -r /rerio/basecall_models/* /rerio_models
 
 # Allow barcoding with Rerio models
-RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
+RUN cp /ont-guppy/data/barcoding/* /rerio_models/barcoding
 
 # Bonito
 
