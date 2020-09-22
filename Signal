@@ -42,7 +42,7 @@ RUN mkdir /guppy_models && cp -r /ont-guppy/data/* /guppy_models
 RUN mkdir /rerio_models && cp -r /rerio/basecall_models/* /rerio_models
 
 # Allow barcoding with Rerio models
-RUN cp /ont-guppy/data/barcoding/* /rerio_models/barcoding
+RUN ls /ont-guppy/ && cp /ont-guppy/data/barcoding/* /rerio_models/barcoding
 
 # Bonito
 
