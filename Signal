@@ -5,17 +5,17 @@ FROM $IMAGE
 ARG GUPPY_VERSION=4.0.16
 ARG MINICONDA_VERSION=latest
 
-ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH /opt/conda/bin:/rust/.cargo/bin:$PATH
 ENV CARGO_HOME=/rust/.cargo
 ENV RUSTUP_HOME=/rust/.rustup
 
 RUN apt-get update && apt-get install -y wget lsb-release && mkdir /src
 
-RUN export PLATFORM=$(lsb_release -cs) && \
+RUN export PLATFORM=$(lsb_release -cs) && \\
     wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | apt-key add - && \
-    echo "deb http://mirror.oxfordnanoportal.com/apt ${PLATFORM}-stable non-free" | tee /etc/apt/sources.list.d/nanoporetech.sources.list && \
-    apt-get update && apt install ont-guppy -y
+    echo "deb http://mirror.oxfordnanoportal.com/apt ${PLATFORM}-stable non-free" | tee /etc/apt/sources.list.d/nanoporetech.sources.list
+
+RUN apt-get update && apt install ont-guppy -y
 
 # Anaconda for BioConda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
