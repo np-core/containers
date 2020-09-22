@@ -39,13 +39,12 @@ RUN git clone https://github.com/nanoporetech/rerio /src/rerio && python /src/re
 
 # Link models into a root directory for unified access
 
-RUN ls /
-RUN ls /ont-guppy/
-RUN mkdir /guppy_models && cp -r /ont-guppy/data/* /guppy_models
+RUN ls /opt
+RUN mkdir /guppy_models && cp -r /opt/ont-guppy/data/* /guppy_models
 RUN mkdir /rerio_models && cp -r /rerio/basecall_models/* /rerio_models
 
 # Allow barcoding with Rerio models
-RUN ls /ont-guppy/ && cp /ont-guppy/data/barcoding/* /rerio_models/barcoding
+RUN cp /opt/ont-guppy/data/barcoding/* /rerio_models/barcoding
 
 # Bonito
 
