@@ -1,6 +1,6 @@
-# Works with drivers > 440: nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
+# Works with drivers > 339: nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
-ARG IMAGE=nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
 FROM $IMAGE
 
@@ -28,7 +28,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda -c defaults --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7
+RUN conda install -c conda-forge -c bioconda -c defaults --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 megalodon=2.1.0
 
 # Nanoq separate because of GLIBC incompatibility for some reason
 RUN apt-get update && apt-get install curl -y
@@ -46,6 +46,6 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 # Allow barcoding with Rerio models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
-RUN pip install megalodon==2.0.0
+RUN pip install megalodon==2.1.0
 
 
