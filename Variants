@@ -48,6 +48,6 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 # Allow barcoding with Rerio models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
-RUN conda install -c conda-forge -c bioconda --yes bcftools=1.10.0
+RUN conda install -c conda-forge -c bioconda --yes bcftools=1.9
 
 
