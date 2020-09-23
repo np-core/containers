@@ -1,6 +1,6 @@
-# Works with drivers > 384: nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+# Works with drivers > 440: nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
-ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
+ARG IMAGE=nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 FROM $IMAGE
 
@@ -11,7 +11,7 @@ ENV PATH /opt/conda/bin:/rust/.cargo/bin:/opt/ont/guppy/bin:$PATH
 ENV CARGO_HOME=/rust/.cargo
 ENV RUSTUP_HOME=/rust/.rustup
 
-RUN apt-get update && apt-get install -y wget lsb-release zlib1g-dev && mkdir /src
+RUN apt-get update && apt-get install -y wget lsb-release && mkdir /src
 
 RUN export PLATFORM=$(lsb_release -cs) && \
     wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | apt-key add - && \
