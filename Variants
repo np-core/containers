@@ -29,7 +29,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 && pip install megalodon=${MEGALODON_VERSION}
+RUN conda install -c conda-forge -c bioconda --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 && pip install megalodon==${MEGALODON_VERSION}
 
 # Nanoq separate because of GLIBC incompatibility for some reason
 RUN apt-get update && apt-get install curl -y
