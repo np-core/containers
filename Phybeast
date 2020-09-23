@@ -17,7 +17,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo "conda activate base" >> ~/.bashrc
 
 RUN conda install -c conda-forge -c bioconda -c genomedk --yes --no-update-deps \
- raxml-ng=0.9.0 gubbins=2.4.1 snippy=4.6.0 goalign fasttree treetime pysam python=3.7
+ raxml-ng=0.9.0 goalign fasttree treetime pysam python=3.7
 
 # NanoPath
 RUN mkdir /nanopath && git clone https://github.com/np-core/nanopath /nanopath && pip install /nanopath

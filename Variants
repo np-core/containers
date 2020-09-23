@@ -5,6 +5,7 @@ ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 FROM $IMAGE
 
 ARG GUPPY_VERSION=4.0.16
+ARG MEGALODON_VERSION=2.2.2
 ARG MINICONDA_VERSION=latest
 
 ENV PATH /opt/conda/bin:/rust/.cargo/bin:/opt/ont/guppy/bin:$PATH
@@ -28,7 +29,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda --yes qcat
+RUN conda install -c conda-forge -c bioconda --yes fastp gubbins=2.4.1 snippy=4.6.0 megalodon=${MEGALODON_VERSION} && pip install ont_pyguppy_client_lib
 
 # Nanoq separate because of GLIBC incompatibility for some reason
 RUN apt-get update && apt-get install curl -y
@@ -45,9 +46,6 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 
 # Allow barcoding with Rerio models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
-
-# Bonito
-RUN pip install ont-bonito
 
 
 
