@@ -4,7 +4,7 @@ ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
 FROM $IMAGE
 
-ARG GUPPY_VERSION=4.0.16
+ARG GUPPY_VERSION=3.6.0
 ARG MINICONDA_VERSION=latest
 
 ENV PATH /opt/conda/bin:/rust/.cargo/bin:/opt/ont/guppy/bin:$PATH
