@@ -46,6 +46,6 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 # Allow barcoding with Rerio models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
-RUN pip install megalodon==2.1.0
+RUN pip install megalodon==2.0.0
 
 
