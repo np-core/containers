@@ -1,6 +1,8 @@
 ARG IMAGE=nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
-# JCU HPC Tesla: cuda:9.2-cudnn7-devel-ubuntu18.04 + openjdk-11-jdk
+# Currently not working with CUDA 11.0
+# JCU HPC Tesla: cuda:9.2-cudnn7-devel-ubuntu18.04 + openjdk-11-jdk  
+
 
 FROM $IMAGE
 
@@ -14,11 +16,11 @@ ARG MINICONDA_VERSION=latest
 
 RUN apt-get update && apt-get install wget git curl build-essential autoconf automake libtool libgfortran3 git sed pkg-config wget ${JAVA_PACKAGE} -y
 
-
+# --disable-sse --disable-march-native 
 RUN git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
     && cd beagle-lib \
     && ./autogen.sh \
-    && ./configure --disable-sse --disable-march-native --prefix=/usr/local \
+    && ./configure --prefix=/usr/local \
     && make \
     && make install \
     && make check
