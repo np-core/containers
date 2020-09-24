@@ -7,6 +7,7 @@ ARG IMAGE=nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 FROM $IMAGE
 
 ARG JAVA_PACKAGE="openjdk-8-jdk"
+ENV PATH=/opt/conda/bin:$PATH
 ENV BEAST_VERSION="2.6.2"
 ENV BEAST_PACKAGE_PATH="/root/.beast/2.6"
 ENV LD_LIBRARY_PATH /usr/local/lib:${LD_LIBRARY_PATH}
@@ -45,7 +46,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN /opt/conda/bin/conda install -c conda-forge -c bioconda --yes --no-update-deps \
+RUN conda install -c conda-forge -c bioconda --yes --no-update-deps \
  raxml-ng=0.9.0 goalign fasttree treetime pysam python=3.7
 
 RUN mkdir /nanopath && git clone https://github.com/np-core/nanopath /nanopath && pip install /nanopath
