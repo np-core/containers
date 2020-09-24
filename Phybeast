@@ -15,11 +15,10 @@ ARG MINICONDA_VERSION=latest
 RUN apt-get update && apt-get install wget git curl build-essential autoconf automake libtool libgfortran3 git sed pkg-config wget ${JAVA_PACKAGE} -y
 
 
-# GPU configuration previous: --disable-sse --disable-march-native
 RUN git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
     && cd beagle-lib \
     && ./autogen.sh \
-    && ./configure --disable-march-native --prefix=/usr/local \
+    && ./configure --disable-sse --disable-march-native --prefix=/usr/local \
     && make \
     && make install \
     && make check
