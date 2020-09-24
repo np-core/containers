@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install wget git curl build-essential autoconf aut
 RUN git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
     && cd beagle-lib \
     && ./autogen.sh \
-    && ./configure --prefix=/usr/local \
+    && ./configure --disable-march-native --prefix=/usr/local \
     && make \
     && make install \
     && make check
