@@ -1,14 +1,42 @@
-FROM ubuntu:18.04
+ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
+# JCU HPC Tesla: cuda:9.2-cudnn7-devel-ubuntu18.04 + openjdk-11-jdk
+
+FROM $IMAGE
+
+ARG JAVA_PACKAGE="openjdk-8-jdk"
+ENV BEAST_VERSION="2.6.2"
+ENV BEAST_PACKAGE_PATH="/root/.beast/2.6"
+ENV LD_LIBRARY_PATH /usr/local/lib:${LD_LIBRARY_PATH}
+ENV PKG_CONFIG_PATH /usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
 ARG MINICONDA_VERSION=latest
 
-ENV PATH /opt/conda/bin:/rust/.cargo/bin:$PATH
-ENV CARGO_HOME=/rust/.cargo
-ENV RUSTUP_HOME=/rust/.rustup
+RUN apt-get update && apt-get install wget git curl build-essential autoconf automake libtool libgfortran3 git sed pkg-config wget ${JAVA_PACKAGE} -y
 
-RUN apt-get update && apt-get install -y wget git curl
 
-# Anaconda
+# GPU configuration previous: --disable-sse --disable-march-native
+RUN git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
+    && cd beagle-lib \
+    && ./autogen.sh \
+    && ./configure --prefix=/usr/local \
+    && make \
+    && make install \
+    && make check
+
+RUN wget --quiet https://github.com/CompEvol/beast2/releases/download/v${BEAST_VERSION}/BEAST.v${BEAST_VERSION}.Linux.tgz \
+    && tar -xzpf BEAST.v${BEAST_VERSION}.Linux.tgz \
+    && rm BEAST.v${BEAST_VERSION}.Linux.tgz \
+    && mv beast/bin/* /usr/local/bin \
+    && mv beast/lib/* /usr/local/lib \
+    && packagemanager -add BDSKY \
+    && packagemanager -add phylodynamics \
+    && packagemanager -add PhyDyn \
+    && packagemanager -add CoupledMCMC \
+    && packagemanager -add bdmm
+
+RUN sed -i 's/x8g/x64g/' /usr/local/bin/treeannotator
+
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
@@ -16,14 +44,10 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda -c genomedk --yes --no-update-deps \
+RUN conda install -c conda-forge -c bioconda --yes --no-update-deps \
  raxml-ng=0.9.0 goalign fasttree treetime pysam python=3.7
 
-# NanoPath
 RUN mkdir /nanopath && git clone https://github.com/np-core/nanopath /nanopath && pip install /nanopath
 
-# Nanoq
-RUN mkdir /rust && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN cargo install nanoq
 
 
