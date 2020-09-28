@@ -55,3 +55,6 @@ RUN mkdir clair_models && cd clair_models && wget http://www.bio8.cs.hku.hk/clai
 RUN echo '#!/bin/bash\npython /opt/conda/bin/clair.py "$@"' > /usr/bin/clair && chmod +x /usr/bin/clair
 
 RUN pip install git+https://github.com/np-core/nanopath
+
+# Vt version is for some reason downgraded, breaking Snippy, upgrade to correct version:
+RUN conda install -c conda-forge -c bioconda vt=0.57721
