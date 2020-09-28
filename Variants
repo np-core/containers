@@ -47,4 +47,4 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
 
-
+RUN pip install tensorflow==2.3.1
