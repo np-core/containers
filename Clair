@@ -6,7 +6,7 @@ ENV PKG_CONFIG_PATH /usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
 ARG MINICONDA_VERSION=latest
 
-RUN apt-get update && apt-get install wget curl build-essentials
+RUN apt-get update && apt-get install wget git curl build-essential zlib1g-dev
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
