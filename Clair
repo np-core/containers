@@ -1,4 +1,4 @@
-ARG IMAGE=nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
 ENV PATH=/opt/conda/bin:/clair_models:$PATH
 ENV LD_LIBRARY_PATH /usr/local/lib:${LD_LIBRARY_PATH}
