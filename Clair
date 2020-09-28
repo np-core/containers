@@ -15,7 +15,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda --yes --no-update-deps clair python=3.7
+RUN conda install -c conda-forge -c bioconda --yes --no-update-deps samtools minimap2 clair python=3.7
 RUN pypy3 -m ensurepip && pypy3 -m pip install --no-cache-dir intervaltree==3.0.2
 
 RUN mkdir clair_models && cd clair_models && wget http://www.bio8.cs.hku.hk/clair_models/ont/122HD34.tar && tar -xf 122HD34.tar && rm 122HD34.tar
