@@ -1,6 +1,6 @@
 ARG IMAGE=nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 
-# Currently not working with CUDA 11.0
+# BEAGLE currently not working with CUDA 11.0
 # JCU HPC Tesla: cuda:9.2-cudnn7-devel-ubuntu18.04 + openjdk-11-jdk  
 
 
