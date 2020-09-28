@@ -53,3 +53,5 @@ RUN pypy3 -m ensurepip && pypy3 -m pip install --no-cache-dir intervaltree==3.0.
 
 RUN mkdir clair_models && cd clair_models && wget http://www.bio8.cs.hku.hk/clair_models/ont/122HD34.tar && tar -xf 122HD34.tar && rm 122HD34.tar
 RUN echo '#!/bin/bash\npython /opt/conda/bin/clair.py "$@"' > /usr/bin/clair && chmod +x /usr/bin/clair
+
+RUN pip install git+https://github.com/np-core/nanopath
