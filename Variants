@@ -48,5 +48,5 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
 # Medaka
-RUN conda install -c conda-forge -c bioconda tabix bgzip samtools minimap2
+RUN conda install -c conda-forge -c bioconda samtools minimap2 tabix
 RUN pip install medaka
