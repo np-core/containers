@@ -47,33 +47,4 @@ RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 # Allow barcoding with Rerio models
 RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
-# Medaka
 
-RUN apt-get update && apt-get install --no-install-recommends -y make \
- cmake \
- file \
- bzip2 \
- gcc \
- g++ \
- python \
- zlib1g-dev \
- wget \
- curl \
- libffi-dev \
- libncurses5-dev \
- libbz2-dev \
- liblzma-dev \
- libcurl4-gnutls-dev \
- libssl-dev \
- python3-all-dev \
- python-virtualenv \
- virtualenv \
- git-lfs && \
- apt-get clean && apt-get autoclean && \
- rm -rf /var/lib/apt/lists/*
-
-RUN git lfs install
-
-ENV medakaVer=1.0.1
-RUN git clone https://github.com/nanoporetech/medaka.git --single-branch --depth 1 --branch v${medakaVer} && \
- cd medaka && make install
