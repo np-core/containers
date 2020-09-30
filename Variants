@@ -58,3 +58,6 @@ RUN pip install git+https://github.com/np-core/nanopath
 
 # Vt version is for some reason downgraded, breaking Snippy, upgrade to correct version:
 RUN conda install -c conda-forge -c bioconda vt=0.57721
+
+# Rasusa
+RUN cargo install rasusa
