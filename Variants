@@ -61,3 +61,6 @@ RUN conda install -c conda-forge -c bioconda vt=0.57721
 
 # Rasusa
 RUN cargo install rasusa
+
+# Pysamstats
+RUN conda install -c conda-forge -c bioconda pysamstats
