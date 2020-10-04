@@ -64,3 +64,6 @@ RUN cargo install rasusa
 
 # Pysamstats
 RUN conda install -c conda-forge -c bioconda pysamstats
+
+# nanopath
+RUN pip install git+https://github.com/np-core/nanopath.git
