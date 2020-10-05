@@ -66,4 +66,4 @@ RUN cargo install rasusa
 RUN conda install -c conda-forge -c bioconda pysamstats
 
 # nanopath
-RUN pip install git+https://github.com/np-core/nanopath.git
+RUN git clone https://github.com/np-core/nanopath && cd nanopath && pip install .
