@@ -67,6 +67,3 @@ RUN conda install -c conda-forge -c bioconda pysamstats
 
 # nanopath
 RUN git clone https://github.com/np-core/nanopath && cd nanopath && pip install .
-
-# Medaka
-RUN conda install -c conda-forge -c bioconda medaka
