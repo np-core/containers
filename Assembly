@@ -1,0 +1,35 @@
+FROM continuumio/miniconda3
+
+LABEL name="np-assembly"
+LABEL version="0.2.0"
+LABEL author="esteinig"
+
+RUN apt-get update && apt-get install curl wget build-essential git sed procps -y
+
+ENV MINICONDA_VERSION=latest
+ENV PATH=/opt/conda/bin:$PATH
+
+RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
+        pysam \
+        pilon=1.23 \
+        racon \
+        minimap2 \
+        shovill=1.1.0 \
+        flye \
+        rasusa \
+        mummer \
+        sccion \
+        mykrobe \
+        fastp \
+        nanoq \
+        coverm \
+        quast \
+        && conda clean -a \
+        && find /opt/conda/ -follow -type f -name '*.a' -delete \
+        && find /opt/conda/ -follow -type f -name '*.pyc' -delete
+
+RUN git clone --recursive https://github.com/katholt/Kleborate.git
+RUN cd Kleborate && pip install .
+
+RUN sed -i '16s/512m/8g/' /opt/conda/share/pilon-1.23-2/pilon
+RUN sed -i '16s/1g/16g/' /opt/conda/share/pilon-1.23-2/pilon
