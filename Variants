@@ -5,7 +5,6 @@ ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
 FROM $IMAGE
 
-ARG GUPPY_VERSION=3.6.0
 ARG MINICONDA_VERSION=latest
 
 ENV PATH /opt/conda/bin:/rust/.cargo/bin:/opt/ont/guppy/bin:$PATH
@@ -29,7 +28,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda -c defaults --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 megalodon=2.2.2
+RUN conda install -c conda-forge -c bioconda -c defaults --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 megalodon=2.2.4
 
 # Nanoq separate because of GLIBC incompatibility for some reason
 RUN apt-get update && apt-get install curl -y
