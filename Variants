@@ -28,7 +28,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda -c defaults --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 megalodon=2.2.4
+RUN conda install -c conda-forge -c bioconda -c defaults --yes fastp gubbins=2.4.1 snippy=4.6.0 python=3.7 megalodon=2.2.2
 
 # Nanoq separate because of GLIBC incompatibility for some reason
 RUN apt-get update && apt-get install curl -y
@@ -66,3 +66,7 @@ RUN conda install -c conda-forge -c bioconda pysamstats
 
 # nanopath
 RUN git clone https://github.com/np-core/nanopath && cd nanopath && pip install .
+
+# PyGuppyClient
+
+RUN pip install ont_pyguppy_client_lib
