@@ -53,6 +53,8 @@ RUN git clone https://github.com/nanoporetech/medaka medaka && \
 
 RUN apt-get clean
 
+ENV PATH=/opt/medaka/venv/bin:/opt/conda/bin:$PATH
+
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
@@ -61,6 +63,3 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     echo "conda activate base" >> ~/.bashrc
 
 RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam 
-
-
-ENV PATH=/opt/medaka/venv/bin:/opt/conda/bin:$PATH
