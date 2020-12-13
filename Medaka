@@ -60,4 +60,4 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam 
+RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam pysamstats
