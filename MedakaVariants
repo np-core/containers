@@ -1,10 +1,10 @@
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.2-cudnn8-devel-ubuntu18.04
 
 ARG MINICONDA_VERSION=latest
 
 ENV PATH /opt/conda/bin:$PATH
 
-RUN apt-get update && apt-get install -y wget git curl build-essential
+RUN apt-get update && apt-get install -y wget build-essential bzip2 tabix
 
 # Anaconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -14,4 +14,6 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda medaka
+RUN conda install -c conda-forge -c bioconda mappy pysamstats racon minimap2 samtools
+
+RUN pip install medaka
