@@ -32,5 +32,8 @@ RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
 RUN git clone --recursive https://github.com/katholt/Kleborate.git
 RUN cd Kleborate && pip install .
 
+# Bonito model
+RUN mkdir /medaka_models && wget https://nanoporetech.box.com/shared/static/ve8445ceb2bnwod1zaj0z2ptuwsvxd64.hdf5 -O /medaka_models/bonito_v0.3.hdf5
+
 RUN sed -i '16s/512m/8g/' /opt/conda/share/pilon-1.23-2/pilon
 RUN sed -i '16s/1g/16g/' /opt/conda/share/pilon-1.23-2/pilon
