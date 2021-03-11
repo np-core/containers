@@ -59,7 +59,6 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam pysamstats medaka=$MEDAKA_VERSION
 
 RUN pip install ont-fast5-api==3.3.0
-ENV PATH /opt/conda/envs/medaka/bin:$PATH
 
 
 # Bonito model
