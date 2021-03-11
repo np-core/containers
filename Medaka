@@ -14,7 +14,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda mappy pysamstats racon minimap2 samtools
+RUN conda install -c conda-forge -c bioconda mappy pysamstats racon minimap2 samtools bcftools
 
 RUN pip install medaka==1.2.3
 
