@@ -1,65 +1,8 @@
-ARG IMAGE=nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
+FROM continuumio/miniconda3
 
-FROM $IMAGE
-
-ENV PATH=/opt/medaka/venv/bin:/opt/conda/bin:$PATH
-ENV MEDAKA_VERSION=1.2.3
-ENV MINIMAP2_VERSION=2.17
-ENV SAMTOOLS_VERSION=1.7
-ENV HTSLIB_VERSION=1.9
-
-RUN apt-get update && apt-get install -y \
-       git \
-       git-lfs \
-       bzip2 \
-       gcc \
-       g++ \
-       cmake \
-       zlib1g-dev \
-       libbz2-dev  \
-       liblzma-dev \
-       libffi-dev \
-       libncurses5-dev \
-       libcurl4-gnutls-dev \
-       libssl-dev \
-       curl \
-       make \
-       tabix \
-       wget \
-       python3-all-dev \
-       python3-pip \
-       python-virtualenv
-
-RUN git lfs install
-
-WORKDIR /opt
-
-RUN wget https://github.com/samtools/htslib/releases/download/${HTSLIB_VERSION}/htslib-${HTSLIB_VERSION}.tar.bz2 && \
-    tar -vxjf htslib-${HTSLIB_VERSION}.tar.bz2 && \
-    cd htslib-${HTSLIB_VERSION} && \
-    make
-
-RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
-    tar -vxjf samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
-    cd samtools-${SAMTOOLS_VERSION} && \
-    make
-
-RUN curl -L https://github.com/lh3/minimap2/releases/download/v${MINIMAP2_VERSION}/minimap2-${MINIMAP2_VERSION}_x64-linux.tar.bz2 | tar -jxvf - && \
-    ln -s /software/minimap2-${MINIMAP2_VERSION}_x64-linux/minimap2 /usr/bin
-
-RUN apt-get clean
-
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
-
-RUN conda install -c bioconda --yes medaka=$MEDAKA_VERSION
-
+RUN apt-get update && apt-get install curl wget build-essential git
+RUN conda install -c bioconda --yes medaka=1.2.3
 RUN pip install ont-fast5-api==3.3.0
-
 
 # Bonito model
 RUN mkdir /medaka_models && wget https://nanoporetech.box.com/shared/static/ve8445ceb2bnwod1zaj0z2ptuwsvxd64.hdf5 -O /medaka_models/bonito_v0.3.hdf5
