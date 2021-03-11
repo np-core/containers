@@ -1,7 +1,19 @@
-FROM continuumio/miniconda3
+FROM nvidia/cuda:10.2-cudnn8-devel-ubuntu18.04
 
-RUN apt-get update && apt-get install curl wget build-essential git -y
-RUN conda install -c conda-forge -c bioconda --yes python=3.6 medaka=1.2.3 ont-fast5-api=3.3.0
+ARG MINICONDA_VERSION=latest
 
-# Bonito model
-RUN mkdir /medaka_models && wget https://nanoporetech.box.com/shared/static/ve8445ceb2bnwod1zaj0z2ptuwsvxd64.hdf5 -O /medaka_models/bonito_v0.3.hdf5
+ENV PATH /opt/conda/bin:$PATH
+
+RUN apt-get update && apt-get install -y wget build-essential bzip2 tabix
+
+# Anaconda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+
+RUN conda install -c conda-forge -c bioconda mappy pysamstats racon minimap2 samtools
+
+RUN pip install medaka==1.2.3
