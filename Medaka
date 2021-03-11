@@ -47,10 +47,6 @@ RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSI
 RUN curl -L https://github.com/lh3/minimap2/releases/download/v${MINIMAP2_VERSION}/minimap2-${MINIMAP2_VERSION}_x64-linux.tar.bz2 | tar -jxvf - && \
     ln -s /software/minimap2-${MINIMAP2_VERSION}_x64-linux/minimap2 /usr/bin
 
-
-RUN git clone https://github.com/nanoporetech/medaka medaka && \
-    cd medaka && make install
-
 RUN apt-get clean
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -61,6 +57,9 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     echo "conda activate base" >> ~/.bashrc
 
 RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam pysamstats
+RUN conda create -n medaka -c conda-forge -c bioconda medaka
+
+ENV PATH /opt/conda/envs/medaka/bin:$PATH
 
 # Bonito model
 RUN mkdir /medaka_models && wget https://nanoporetech.box.com/shared/static/ve8445ceb2bnwod1zaj0z2ptuwsvxd64.hdf5 -O /medaka_models/bonito_v0.3.hdf5
