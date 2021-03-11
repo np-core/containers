@@ -57,7 +57,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     echo "conda activate base" >> ~/.bashrc
 
 RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam pysamstats
-RUN conda create -n medaka -c conda-forge -c bioconda medaka
+RUN conda create -n medaka -c conda-forge -c bioconda medaka=$MEDAKA_VERSION
 
 ENV PATH /opt/conda/envs/medaka/bin:$PATH
 RUN pip install ont-fast5-api
