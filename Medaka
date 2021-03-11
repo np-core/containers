@@ -56,7 +56,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda-3.6.0-Linux-x86_6
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda --yes medaka=$MEDAKA_VERSION
+RUN conda install -c bioconda --yes medaka=$MEDAKA_VERSION
 
 RUN pip install ont-fast5-api==3.3.0
 
