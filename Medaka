@@ -1,7 +1,7 @@
 FROM continuumio/miniconda3
 
 RUN apt-get update && apt-get install curl wget build-essential git -y
-RUN conda install -c bioconda --yes medaka=1.2.3
+RUN conda install -c conda-forge -c bioconda --yes python=3.6 medaka=1.2.3
 RUN pip install ont-fast5-api==3.3.0
 
 # Bonito model
