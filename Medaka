@@ -60,7 +60,6 @@ RUN conda install -c conda-forge -c bioconda --yes --no-update-deps pysam pysams
 RUN conda create -n medaka -c conda-forge -c bioconda medaka=$MEDAKA_VERSION
 
 ENV PATH /opt/conda/envs/medaka/bin:$PATH
-RUN pip install ont-fast5-api
 
 # Bonito model
 RUN mkdir /medaka_models && wget https://nanoporetech.box.com/shared/static/ve8445ceb2bnwod1zaj0z2ptuwsvxd64.hdf5 -O /medaka_models/bonito_v0.3.hdf5
