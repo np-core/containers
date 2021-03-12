@@ -6,7 +6,7 @@ LABEL author="esteinig"
 
 RUN apt-get update && apt-get install curl wget build-essential git -y 
 
-RUN conda install -c conda-forge -c bioconda unicycler
+RUN conda install -c conda-forge -c bioconda samtools unicycler
 
 ENV MINICONDA_VERSION=latest
 ENV PATH=/opt/conda/bin:$PATH
