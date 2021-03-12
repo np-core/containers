@@ -1,0 +1,13 @@
+FROM continuumio/miniconda3
+
+LABEL name="np-assembly"
+LABEL version="0.2.0"
+LABEL author="esteinig"
+
+RUN apt-get update && apt-get install curl wget build-essential git -y 
+
+RUN conda install -c conda-forge -c bioconda unicycler
+
+ENV MINICONDA_VERSION=latest
+ENV PATH=/opt/conda/bin:$PATH
+

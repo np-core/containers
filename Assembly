@@ -29,8 +29,6 @@ RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
         && find /opt/conda/ -follow -type f -name '*.a' -delete \
         && find /opt/conda/ -follow -type f -name '*.pyc' -delete
 
-RUN conda install -c conda-forge -c bioconda unicycler
-
 RUN git clone --recursive https://github.com/katholt/Kleborate.git
 RUN cd Kleborate && pip install .
 
