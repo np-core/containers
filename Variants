@@ -68,5 +68,4 @@ RUN conda install -c conda-forge -c bioconda pysamstats
 RUN git clone https://github.com/np-core/nanopath && cd nanopath && pip install .
 
 # PyGuppyClient
-
 RUN pip install ont_pyguppy_client_lib

@@ -10,7 +10,7 @@ ENV PATH /opt/conda/bin:/rust/.cargo/bin:/opt/ont/guppy/bin:$PATH
 ENV CARGO_HOME=/rust/.cargo
 ENV RUSTUP_HOME=/rust/.rustup
 
-RUN apt-get update && apt-get install -y wget lsb-release && mkdir /src
+RUN apt-get update --allow-unauthenticated && apt-get install -y wget lsb-release && mkdir /src
 
 RUN export PLATFORM=$(lsb_release -cs) && \
     wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | apt-key add - && \
