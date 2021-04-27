@@ -47,7 +47,8 @@ RUN mkdir /guppy_models && cp -r /opt/ont/guppy/data/* /guppy_models
 
 # Bonito
 RUN apt-get install -y libz-dev 
-RUN pip install mappy==2.18 && pip install ont-bonito
+RUN pip install mappy==2.18 && pip install ont-bonito 
+RUN bonito download --models --latest -f
 
 
 
