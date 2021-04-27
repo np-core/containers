@@ -27,7 +27,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERS
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
-RUN conda install -c conda-forge -c bioconda --yes qcat
+RUN conda install -c conda-forge -c bioconda --yes qcat python=3.8
 
 # Nanoq separate because of GLIBC incompatibility for some reason
 RUN apt-get update && apt-get install curl -y
@@ -36,17 +36,17 @@ RUN cargo install nanoq
 
 # Research basecall models from Rerio
 RUN apt-get update && apt-get install git -y
-RUN git clone https://github.com/nanoporetech/rerio /src/rerio && python /src/rerio/download_model.py
+# RUN git clone https://github.com/nanoporetech/rerio /src/rerio && python /src/rerio/download_model.py
 
 # Link models into a root directory for unified access
 RUN mkdir /guppy_models && cp -r /opt/ont/guppy/data/* /guppy_models
-RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
+# RUN mkdir /rerio_models && cp -r /src/rerio/basecall_models/* /rerio_models
 
 # Allow barcoding with Rerio models
-RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
+# RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
 # Bonito
-RUN pip install ont-bonito
+RUN pip install mappy=2.17 && pip install ont-bonito
 
 
 
