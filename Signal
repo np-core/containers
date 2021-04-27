@@ -46,7 +46,7 @@ RUN mkdir /guppy_models && cp -r /opt/ont/guppy/data/* /guppy_models
 # RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
 # Bonito
-RUN apt-get install libz-dev
+RUN apt-get install -y libz-dev 
 RUN pip install mappy==2.18 && pip install ont-bonito
 
 
