@@ -46,7 +46,7 @@ RUN mkdir /guppy_models && cp -r /opt/ont/guppy/data/* /guppy_models
 # RUN cp /opt/ont/guppy/data/barcoding/* /rerio_models/barcoding
 
 # Bonito
-RUN pip install mappy==2.17 && pip install ont-bonito
+RUN pip install mappy==2.18 && pip install ont-bonito
 
 
 
