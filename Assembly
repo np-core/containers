@@ -19,12 +19,9 @@ RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
         rasusa \
         mummer \
         sccion \
-        mykrobe \
         fastp \
         nanoq \
         coverm \
-        quast \
-        ariba \
         && conda clean -a \
         && find /opt/conda/ -follow -type f -name '*.a' -delete \
         && find /opt/conda/ -follow -type f -name '*.pyc' -delete

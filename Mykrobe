@@ -1,0 +1,14 @@
+FROM continuumio/miniconda3
+
+
+RUN apt-get update && apt-get install curl wget build-essential -y
+
+ENV MINICONDA_VERSION=latest
+ENV PATH=/opt/conda/bin:$PATH
+
+RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
+        mykrobe\
+        && conda clean -a \
+        && find /opt/conda/ -follow -type f -name '*.a' -delete \
+        && find /opt/conda/ -follow -type f -name '*.pyc' -delete
+
