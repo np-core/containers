@@ -7,8 +7,11 @@ ENV MINICONDA_VERSION=latest
 ENV PATH=/opt/conda/bin:$PATH
 
 RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
-        mykrobe\
+        mykrobe \
+        sccion \
         && conda clean -a \
         && find /opt/conda/ -follow -type f -name '*.a' -delete \
         && find /opt/conda/ -follow -type f -name '*.pyc' -delete
 
+RUN git clone --recursive https://github.com/katholt/Kleborate.git
+RUN cd Kleborate && pip install .
