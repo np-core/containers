@@ -10,3 +10,6 @@ RUN conda install -c conda-forge -c bioconda -c esteinig --yes \
         && conda clean -a \
         && find /opt/conda/ -follow -type f -name '*.a' -delete \
         && find /opt/conda/ -follow -type f -name '*.pyc' -delete
+
+RUN mykrobe panels update_metadata
+RUN mykrobe panels update_species all
