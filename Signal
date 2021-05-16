@@ -1,6 +1,6 @@
 # Works with drivers > 384: nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
-ARG IMAGE=nvidia/cuda:10.2-cudnn8-devel-ubuntu18.04
+ARG IMAGE=nvidia/cuda:11.0-cudnn8-devel-ubuntu16.04
 
 FROM $IMAGE
 
